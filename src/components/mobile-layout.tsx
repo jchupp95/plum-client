@@ -1,17 +1,31 @@
 import React from 'react'
-import { ChefHat, Menu } from 'lucide-react'
+import { ChefHat, Menu, ScrollText } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
+export type AppPage = 'recipes' | 'shopping-list'
+
 interface MobileLayoutProps {
   children: React.ReactNode
   title: string
+  currentPage: AppPage
+  onNavigate?: (page: AppPage) => void
   showBottomNav?: boolean
 }
 
-export function MobileLayout({ children, title, showBottomNav = false }: MobileLayoutProps) {
+const navItems: Array<{ id: AppPage; label: string; icon: React.ComponentType<{ className?: string }> }> = [
+  { id: 'recipes', label: 'Recipes', icon: ChefHat },
+  { id: 'shopping-list', label: 'List', icon: ScrollText },
+]
+
+export function MobileLayout({ children, title, currentPage, onNavigate, showBottomNav = false }: MobileLayoutProps) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+
+  const handleNavigate = (page: AppPage) => {
+    onNavigate?.(page)
+    setIsMenuOpen(false)
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -29,10 +43,21 @@ export function MobileLayout({ children, title, showBottomNav = false }: MobileL
                 <h2 className="text-lg font-semibold">Navigation</h2>
                 <Separator />
                 <nav className="flex flex-col space-y-2">
-                  <Button variant="secondary" className="justify-start" onClick={() => setIsMenuOpen(false)}>
-                    <ChefHat className="mr-2 h-4 w-4" />
-                    Recipes
-                  </Button>
+                  {navItems.map((item) => {
+                    const Icon = item.icon
+
+                    return (
+                      <Button
+                        key={item.id}
+                        variant={currentPage === item.id ? 'secondary' : 'ghost'}
+                        className="justify-start"
+                        onClick={() => handleNavigate(item.id)}
+                      >
+                        <Icon className="mr-2 h-4 w-4" />
+                        {item.label}
+                      </Button>
+                    )
+                  })}
                 </nav>
               </div>
             </SheetContent>
@@ -46,11 +71,22 @@ export function MobileLayout({ children, title, showBottomNav = false }: MobileL
 
       {showBottomNav && (
         <nav className="fixed bottom-0 left-0 right-0 z-50 border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-          <div className="flex h-16 items-center justify-center px-4">
-            <Button variant="secondary" className="flex h-auto flex-col items-center space-y-1 py-2">
-              <ChefHat className="h-5 w-5" />
-              <span className="text-xs">Recipes</span>
-            </Button>
+          <div className="grid h-16 grid-cols-2 items-center gap-2 px-4">
+            {navItems.map((item) => {
+              const Icon = item.icon
+
+              return (
+                <Button
+                  key={item.id}
+                  variant={currentPage === item.id ? 'secondary' : 'ghost'}
+                  className="flex h-auto flex-col items-center py-2"
+                  onClick={() => onNavigate?.(item.id)}
+                >
+                  <Icon className="h-5 w-5" />
+                  <span className="text-xs">{item.label}</span>
+                </Button>
+              )
+            })}
           </div>
         </nav>
       )}
