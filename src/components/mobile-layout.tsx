@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
-export type AppPage = 'recipes' | 'shopping-list'
+export type AppPage = 'recipes' | 'shopping-list' | 'recipe-details' | 'recipe-create'
 
 interface MobileLayoutProps {
   children: React.ReactNode

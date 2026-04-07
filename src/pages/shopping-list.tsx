@@ -11,7 +11,7 @@ import type { ShoppingListItem } from '@/types/shopping-list'
 
 interface ShoppingListPageProps {
   currentPage: AppPage
-  onNavigate: (page: AppPage) => void
+  onNavigate: (page: AppPage, recipeId?: number) => void
 }
 
 export function ShoppingListPage({ currentPage, onNavigate }: ShoppingListPageProps) {

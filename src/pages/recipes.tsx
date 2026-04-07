@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
-import { Utensils } from 'lucide-react'
+import { Utensils, Plus } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
 import { MobileLayout, type AppPage } from '@/components/mobile-layout'
 import type { Recipe } from '@/types/recipe'
 import { RecipeService } from '@/services/recipe-service'
@@ -10,7 +11,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'
 
 interface RecipesPageProps {
   currentPage: AppPage
-  onNavigate: (page: AppPage) => void
+  onNavigate: (page: AppPage, recipeId?: number) => void
 }
 
 export function RecipesPage({ currentPage, onNavigate }: RecipesPageProps) {
@@ -67,12 +68,30 @@ export function RecipesPage({ currentPage, onNavigate }: RecipesPageProps) {
     )
   }
 
+  const handleRecipeClick = (recipeId: number) => {
+    onNavigate('recipe-details', recipeId)
+  }
+
+  const handleCreateClick = () => {
+    onNavigate('recipe-create')
+  }
+
   return (
     <MobileLayout title="Recipes" currentPage={currentPage} onNavigate={onNavigate} showBottomNav={true}>
       <div className="container mx-auto px-4 py-4">
+        <div className="mb-4">
+          <Button onClick={handleCreateClick} className="w-full" variant="default">
+            <Plus className="h-4 w-4 mr-2" />
+            Create New Recipe
+          </Button>
+        </div>
         <div className="grid gap-3">
           {recipes.map((recipe) => (
-            <Card key={recipe.id} className="overflow-hidden py-2">
+            <Card
+              key={recipe.id}
+              className="overflow-hidden py-2 cursor-pointer hover:bg-accent transition-colors"
+              onClick={() => handleRecipeClick(recipe.id)}
+            >
               <CardContent className="py-0">
                 <div className="flex items-center space-x-3">
                   <Avatar className="h-16 w-16 rounded-full shrink-0">
