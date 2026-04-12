@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { MobileLayout, type AppPage } from '@/components/mobile-layout'
 import type { Recipe, Ingredient } from '@/types/recipe'
-import { RecipeService } from '@/services/recipe-service'
+import { RecipeService } from '@/services/service'
 
 interface RecipeCreatePageProps {
   currentPage: AppPage

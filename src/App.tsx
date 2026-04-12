@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { type AppPage } from '@/components/mobile-layout'
 import { ShoppingListPage } from '@/pages/shopping-list'
 import { RecipesPage } from '@/pages/recipes'
+import { MenuPage } from '@/pages/menu'
 import { RecipeDetailsPage } from '@/pages/recipe-details'
 import { RecipeCreatePage } from '@/pages/recipe-create'
 
@@ -45,6 +46,10 @@ export function App() {
 
   if (currentPage === 'shopping-list') {
     return <ShoppingListPage currentPage={currentPage} onNavigate={handleNavigate} />
+  }
+
+  if (currentPage === 'menu') {
+    return <MenuPage currentPage={currentPage} onNavigate={handleNavigate} />
   }
 
   return <RecipesPage currentPage={currentPage} onNavigate={handleNavigate} />

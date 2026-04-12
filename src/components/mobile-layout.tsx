@@ -1,10 +1,10 @@
 import React from 'react'
-import { ChefHat, Menu, ScrollText } from 'lucide-react'
+import { ChefHat, Menu, ScrollText, BookOpen } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
-export type AppPage = 'recipes' | 'shopping-list' | 'recipe-details' | 'recipe-create'
+export type AppPage = 'recipes' | 'menu' | 'shopping-list' | 'recipe-details' | 'recipe-create'
 
 interface MobileLayoutProps {
   children: React.ReactNode
@@ -16,6 +16,7 @@ interface MobileLayoutProps {
 
 const navItems: Array<{ id: AppPage; label: string; icon: React.ComponentType<{ className?: string }> }> = [
   { id: 'recipes', label: 'Recipes', icon: ChefHat },
+  { id: 'menu', label: 'Menu', icon: BookOpen },
   { id: 'shopping-list', label: 'List', icon: ScrollText },
 ]
 
@@ -29,7 +30,7 @@ export function MobileLayout({ children, title, currentPage, onNavigate, showBot
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
         <div className="container flex h-14 items-center px-4">
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
@@ -70,7 +71,7 @@ export function MobileLayout({ children, title, currentPage, onNavigate, showBot
       <main className={showBottomNav ? 'flex-1 pb-16' : 'flex-1'}>{children}</main>
 
       {showBottomNav && (
-        <nav className="fixed bottom-0 left-0 right-0 z-50 border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <nav className="fixed bottom-0 left-0 right-0 z-50 border-t bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
           <div className="grid h-16 grid-cols-2 items-center gap-2 px-4">
             {navItems.map((item) => {
               const Icon = item.icon

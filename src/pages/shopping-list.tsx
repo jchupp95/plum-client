@@ -6,7 +6,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { RecipeService } from '@/services/recipe-service'
+import { RecipeService } from '@/services/service'
 import type { ShoppingListItem } from '@/types/shopping-list'
 
 interface ShoppingListPageProps {

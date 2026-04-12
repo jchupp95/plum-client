@@ -3,6 +3,12 @@ import type { ShoppingList } from '@/types/shopping-list'
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'
 
+export interface Menu {
+  id: number
+  name: string
+  recipes: Recipe[]
+}
+
 export class RecipeService {
   static async getAllIngredients(): Promise<Ingredient[]> {
     try {
@@ -132,6 +138,68 @@ export class RecipeService {
     } catch (error) {
       console.error('Failed to create recipe:', error)
       return null
+    }
+  }
+
+  static async getCurrentMenu(): Promise<Menu> {
+    const response = await fetch(`${API_BASE_URL}/menu/current`)
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+
+    const data = await response.json()
+    if (data && typeof data === 'object' && Array.isArray(data.recipes)) {
+      return data as Menu
+    }
+
+    if (Array.isArray(data)) {
+      return { id: 0, name: 'Menu', recipes: data }
+    }
+
+    console.warn('Unexpected current menu response shape', data)
+    return { id: 0, name: 'Menu', recipes: [] }
+  }
+
+  static async updateMenuRecipes(menuId: number, recipeIds: number[]): Promise<boolean> {
+    try {
+      const response = await fetch(`${API_BASE_URL}/menu/${menuId}/recipes`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ recipe_ids: recipeIds }),
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
+      return true
+    } catch (error) {
+      console.error('Failed to update menu recipes:', error)
+      return false
+    }
+  }
+
+  static async addToMenu(menuId: number, recipeId: number, currentRecipeIds: number[]): Promise<boolean> {
+    try {
+      const recipeIds = new Set(currentRecipeIds)
+      recipeIds.add(recipeId)
+      return await RecipeService.updateMenuRecipes(menuId, Array.from(recipeIds))
+    } catch (error) {
+      console.error('Failed to add recipe to menu:', error)
+      return false
+    }
+  }
+
+  static async removeFromMenu(menuId: number, recipeId: number, currentRecipeIds: number[]): Promise<boolean> {
+    try {
+      const recipeIds = currentRecipeIds.filter((id) => id !== recipeId)
+      return await RecipeService.updateMenuRecipes(menuId, recipeIds)
+    } catch (error) {
+      console.error('Failed to remove recipe from menu:', error)
+      return false
     }
   }
 }
