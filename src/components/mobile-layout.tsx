@@ -1,10 +1,10 @@
 import React from 'react'
-import { ChefHat, Menu, ScrollText, BookOpen } from 'lucide-react'
+import { CalendarDays, ChefHat, Menu, ScrollText, BookOpen } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
-export type AppPage = 'recipes' | 'menu' | 'shopping-list' | 'recipe-details' | 'recipe-create'
+export type AppPage = 'recipes' | 'menu' | 'schedule' | 'shopping-list' | 'recipe-details' | 'recipe-create'
 
 interface MobileLayoutProps {
   children: React.ReactNode
@@ -17,6 +17,7 @@ interface MobileLayoutProps {
 const navItems: Array<{ id: AppPage; label: string; icon: React.ComponentType<{ className?: string }> }> = [
   { id: 'recipes', label: 'Recipes', icon: ChefHat },
   { id: 'menu', label: 'Menu', icon: BookOpen },
+  { id: 'schedule', label: 'Schedule', icon: CalendarDays },
   { id: 'shopping-list', label: 'List', icon: ScrollText },
 ]
 

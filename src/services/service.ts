@@ -161,6 +161,22 @@ export class RecipeService {
     return { id: 0, name: 'Menu', recipes: [] }
   }
 
+  static async getMenus(): Promise<Menu[]> {
+    const response = await fetch(`${API_BASE_URL}/menu/`)
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+
+    const data = await response.json()
+    if (Array.isArray(data)) {
+      return data as Menu[]
+    }
+
+    console.warn('Unexpected menus response shape', data)
+    return []
+  }
+
   static async updateMenuRecipes(menuId: number, recipeIds: number[]): Promise<boolean> {
     try {
       const response = await fetch(`${API_BASE_URL}/menu/${menuId}/recipes`, {
