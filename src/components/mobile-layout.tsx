@@ -1,5 +1,5 @@
 import React from 'react'
-import { CalendarDays, ChefHat, Menu, ScrollText, BookOpen, RefreshCcw } from 'lucide-react'
+import { CalendarDays, ChefHat, Menu, ScrollText, BookOpen, RefreshCcw, Carrot } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
@@ -9,6 +9,7 @@ export type AppPage =
   | 'menu'
   | 'schedule'
   | 'shopping-list'
+  | 'ingredients'
   | 'recurring'
   | 'recipe-details'
   | 'recipe-create'
@@ -26,6 +27,7 @@ const navItems: Array<{ id: AppPage; label: string; icon: React.ComponentType<{ 
   { id: 'menu', label: 'Menu', icon: BookOpen },
   { id: 'schedule', label: 'Schedule', icon: CalendarDays },
   { id: 'shopping-list', label: 'List', icon: ScrollText },
+  { id: 'ingredients', label: 'Ingredients', icon: Carrot },
   { id: 'recurring', label: 'Recurring', icon: RefreshCcw },
 ]
 

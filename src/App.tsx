@@ -8,6 +8,7 @@ import { SchedulePage } from '@/pages/schedule'
 import { RecipeDetailsPage } from '@/pages/recipe-details'
 import { RecipeCreatePage } from '@/pages/recipe-create'
 import { RecurringPage } from '@/pages/recurring'
+import { IngredientsPage } from '@/pages/ingredients'
 
 export function App() {
   const [currentPage, setCurrentPage] = useState<AppPage>('recipes')
@@ -48,6 +49,10 @@ export function App() {
 
   if (currentPage === 'shopping-list') {
     return <ShoppingListPage currentPage={currentPage} onNavigate={handleNavigate} />
+  }
+
+  if (currentPage === 'ingredients') {
+    return <IngredientsPage currentPage={currentPage} onNavigate={handleNavigate} />
   }
 
   if (currentPage === 'menu') {

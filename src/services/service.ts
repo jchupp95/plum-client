@@ -73,6 +73,45 @@ export class RecipeService {
       return []
     }
   }
+
+  static async createIngredient(name: string): Promise<Ingredient | null> {
+    try {
+      const response = await fetch(`${API_BASE_URL}/ingredient/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name }),
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
+      return await response.json()
+    } catch (error) {
+      console.error('Failed to create ingredient:', error)
+      return null
+    }
+  }
+
+  static async deleteIngredient(ingredientId: number): Promise<boolean> {
+    try {
+      const response = await fetch(`${API_BASE_URL}/ingredient/${ingredientId}`, {
+        method: 'DELETE',
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
+      return await response.json()
+    } catch (error) {
+      console.error('Failed to delete ingredient:', error)
+      return false
+    }
+  }
+
   static async getRecipes(): Promise<Recipe[]> {
     const response = await fetch(`${API_BASE_URL}/recipe/overview`)
 
