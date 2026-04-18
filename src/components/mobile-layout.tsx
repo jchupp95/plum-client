@@ -1,10 +1,17 @@
 import React from 'react'
-import { CalendarDays, ChefHat, Menu, ScrollText, BookOpen } from 'lucide-react'
+import { CalendarDays, ChefHat, Menu, ScrollText, BookOpen, RefreshCcw } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
-export type AppPage = 'recipes' | 'menu' | 'schedule' | 'shopping-list' | 'recipe-details' | 'recipe-create'
+export type AppPage =
+  | 'recipes'
+  | 'menu'
+  | 'schedule'
+  | 'shopping-list'
+  | 'recurring'
+  | 'recipe-details'
+  | 'recipe-create'
 
 interface MobileLayoutProps {
   children: React.ReactNode
@@ -19,6 +26,7 @@ const navItems: Array<{ id: AppPage; label: string; icon: React.ComponentType<{ 
   { id: 'menu', label: 'Menu', icon: BookOpen },
   { id: 'schedule', label: 'Schedule', icon: CalendarDays },
   { id: 'shopping-list', label: 'List', icon: ScrollText },
+  { id: 'recurring', label: 'Recurring', icon: RefreshCcw },
 ]
 
 export function MobileLayout({ children, title, currentPage, onNavigate, showBottomNav = false }: MobileLayoutProps) {
@@ -73,7 +81,10 @@ export function MobileLayout({ children, title, currentPage, onNavigate, showBot
 
       {showBottomNav && (
         <nav className="fixed bottom-0 left-0 right-0 z-50 border-t bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
-          <div className="grid h-16 grid-cols-2 items-center gap-2 px-4">
+          <div
+            className="grid h-16 items-center gap-2 px-4"
+            style={{ gridTemplateColumns: `repeat(${navItems.length}, minmax(0, 1fr))` }}
+          >
             {navItems.map((item) => {
               const Icon = item.icon
 

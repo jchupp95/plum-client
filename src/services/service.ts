@@ -1,5 +1,6 @@
 import type { Recipe, Ingredient } from '@/types/recipe'
 import type { ShoppingList } from '@/types/shopping-list'
+import type { StockItem } from '@/types/stock-item'
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'
 
@@ -10,6 +11,54 @@ export interface Menu {
 }
 
 export class RecipeService {
+  static async getStockItems(): Promise<StockItem[]> {
+    const response = await fetch(`${API_BASE_URL}/stock-item/`)
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+
+    return await response.json()
+  }
+
+  static async createStockItem(name: string): Promise<StockItem | null> {
+    try {
+      const response = await fetch(`${API_BASE_URL}/stock-item/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name }),
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
+      return await response.json()
+    } catch (error) {
+      console.error('Failed to create stock item:', error)
+      return null
+    }
+  }
+
+  static async deleteStockItem(stockItemId: number): Promise<boolean> {
+    try {
+      const response = await fetch(`${API_BASE_URL}/stock-item/${stockItemId}`, {
+        method: 'DELETE',
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
+      return await response.json()
+    } catch (error) {
+      console.error('Failed to delete stock item:', error)
+      return false
+    }
+  }
+
   static async getAllIngredients(): Promise<Ingredient[]> {
     try {
       const response = await fetch(`${API_BASE_URL}/ingredient/`)
