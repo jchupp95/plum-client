@@ -22,13 +22,21 @@ interface MobileLayoutProps {
   showBottomNav?: boolean
 }
 
-const navItems: Array<{ id: AppPage; label: string; icon: React.ComponentType<{ className?: string }> }> = [
+const menuNavItems: Array<{ id: AppPage; label: string; icon: React.ComponentType<{ className?: string }> }> = [
   { id: 'recipes', label: 'Recipes', icon: ChefHat },
   { id: 'menu', label: 'Menu', icon: BookOpen },
   { id: 'schedule', label: 'Schedule', icon: CalendarDays },
   { id: 'shopping-list', label: 'List', icon: ScrollText },
   { id: 'ingredients', label: 'Ingredients', icon: Carrot },
   { id: 'recurring', label: 'Recurring', icon: RefreshCcw },
+]
+
+const bottomNavItems: Array<{ id: AppPage; label: string; icon: React.ComponentType<{ className?: string }> }> = [
+  { id: 'shopping-list', label: 'List', icon: ScrollText },
+  { id: 'recurring', label: 'Recurring', icon: RefreshCcw },
+  { id: 'menu', label: 'Menu', icon: BookOpen },
+  { id: 'schedule', label: 'Calendar', icon: CalendarDays },
+  { id: 'recipes', label: 'Recipes', icon: ChefHat },
 ]
 
 export function MobileLayout({ children, title, currentPage, onNavigate, showBottomNav = false }: MobileLayoutProps) {
@@ -52,10 +60,10 @@ export function MobileLayout({ children, title, currentPage, onNavigate, showBot
             </SheetTrigger>
             <SheetContent side="left" className="w-64">
               <div className="flex flex-col space-y-4 py-4">
-                <h2 className="text-lg font-semibold">Navigation</h2>
+                <h2 className="text-lg font-semibold ml-3">Navigation</h2>
                 <Separator />
                 <nav className="flex flex-col space-y-2">
-                  {navItems.map((item) => {
+                  {menuNavItems.map((item) => {
                     const Icon = item.icon
 
                     return (
@@ -85,9 +93,9 @@ export function MobileLayout({ children, title, currentPage, onNavigate, showBot
         <nav className="fixed bottom-0 left-0 right-0 z-50 border-t bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
           <div
             className="grid h-16 items-center gap-2 px-4"
-            style={{ gridTemplateColumns: `repeat(${navItems.length}, minmax(0, 1fr))` }}
+            style={{ gridTemplateColumns: `repeat(${bottomNavItems.length}, minmax(0, 1fr))` }}
           >
-            {navItems.map((item) => {
+            {bottomNavItems.map((item) => {
               const Icon = item.icon
 
               return (

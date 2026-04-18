@@ -11,7 +11,7 @@ import { RecurringPage } from '@/pages/recurring'
 import { IngredientsPage } from '@/pages/ingredients'
 
 export function App() {
-  const [currentPage, setCurrentPage] = useState<AppPage>('recipes')
+  const [currentPage, setCurrentPage] = useState<AppPage>('menu')
   const [selectedRecipeId, setSelectedRecipeId] = useState<number | null>(null)
 
   const handleNavigate = (page: AppPage, recipeId?: number) => {
