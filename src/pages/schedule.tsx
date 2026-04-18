@@ -171,7 +171,7 @@ export function SchedulePage({ currentPage, onNavigate }: SchedulePageProps) {
   return (
     <MobileLayout title="Schedule" currentPage={currentPage} onNavigate={onNavigate} showBottomNav={true}>
       <div
-        className="container mx-auto px-4 pb-44 pt-4"
+        className="container mx-auto px-4 pb-4 pt-4"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
@@ -183,7 +183,7 @@ export function SchedulePage({ currentPage, onNavigate }: SchedulePageProps) {
           </div>
         </div>
 
-        <div className="grid gap-3 pb-24">
+        <div className="grid gap-3 pb-12">
           {currentMenu?.recipes.length ? (
             currentMenu.recipes.map((recipe) => (
               <Card key={recipe.id} className="overflow-hidden py-2 hover:bg-accent transition-colors">
