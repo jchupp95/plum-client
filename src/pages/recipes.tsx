@@ -5,10 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { MobileLayout, type AppPage } from '@/components/mobile-layout'
 import type { Recipe } from '@/types/recipe'
-import type { Menu } from '@/services/service'
-import { RecipeService } from '@/services/service'
-
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'
+import { getRecipeImageUrl, RecipeService, type Menu } from '@/services/service'
 
 interface RecipesPageProps {
   currentPage: AppPage
@@ -138,7 +135,7 @@ export function RecipesPage({ currentPage, onNavigate }: RecipesPageProps) {
               <CardContent className="py-0">
                 <div className="flex items-center space-x-3">
                   <Avatar className="h-16 w-16 rounded-full shrink-0">
-                    <AvatarImage src={recipe.image.startsWith('/images/') ? `${API_BASE_URL}${recipe.image}` : recipe.image} alt={recipe.name} />
+                    <AvatarImage src={getRecipeImageUrl(recipe.image)} alt={recipe.name} />
                     <AvatarFallback className="rounded-full">
                       <Utensils className="h-7 w-7" aria-hidden="true" />
                     </AvatarFallback>

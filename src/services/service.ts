@@ -2,7 +2,23 @@ import type { Recipe, Ingredient } from '@/types/recipe'
 import type { ShoppingList } from '@/types/shopping-list'
 import type { StockItem } from '@/types/stock-item'
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'
+export const API_BASE_URL =
+  window.PLUM_CONFIG?.VITE_API_URL ||
+  import.meta.env.VITE_API_URL ||
+  'http://127.0.0.1:8000'
+
+console.info('[RecipeService] API_BASE_URL:', API_BASE_URL, {
+  runtimeConfig: window.PLUM_CONFIG,
+  viteEnv: import.meta.env.VITE_API_URL,
+})
+
+export function getRecipeImageUrl(image?: string | null): string {
+  if (!image) {
+    return ''
+  }
+
+  return image.startsWith('/images/') ? `${API_BASE_URL}${image}` : image
+}
 
 export interface Menu {
   id: number

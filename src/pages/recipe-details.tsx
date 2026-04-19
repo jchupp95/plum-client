@@ -4,9 +4,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { MobileLayout, type AppPage } from '@/components/mobile-layout'
 import type { Recipe, Ingredient } from '@/types/recipe'
-import { RecipeService } from '@/services/service'
-
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'
+import { getRecipeImageUrl, RecipeService } from '@/services/service'
 
 interface RecipeDetailsPageProps {
   currentPage: AppPage
@@ -286,9 +284,7 @@ export function RecipeDetailsPage({
     )
   }
 
-  const displayImage = imagePreview || (recipe.image.startsWith('/images/')
-    ? `${API_BASE_URL}${recipe.image}`
-    : recipe.image)
+  const displayImage = imagePreview || getRecipeImageUrl(recipe.image)
 
   return (
     <MobileLayout
