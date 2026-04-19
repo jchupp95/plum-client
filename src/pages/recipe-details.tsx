@@ -214,7 +214,7 @@ export function RecipeDetailsPage({
     )
 
     if (!exists) {
-      updatedList.push({ name: newIngredient })
+      updatedList.push({ name: newIngredient, recipes: [] })
       setFormData({
         ...formData,
         shopping_list: updatedList,

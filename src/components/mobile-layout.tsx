@@ -49,7 +49,7 @@ export function MobileLayout({ children, title, currentPage, onNavigate, showBot
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 pt-safe backdrop-blur supports-backdrop-filter:bg-background/60">
         <div className="container flex h-14 items-center px-4">
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
@@ -90,7 +90,7 @@ export function MobileLayout({ children, title, currentPage, onNavigate, showBot
       <main className={showBottomNav ? 'flex-1 pb-16' : 'flex-1'}>{children}</main>
 
       {showBottomNav && (
-        <nav className="fixed bottom-0 left-0 right-0 z-50 border-t bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
+        <nav className="fixed bottom-0 right-0 left-0 z-50 border-t bg-background/95 pb-safe backdrop-blur supports-backdrop-filter:bg-background/60">
           <div
             className="grid h-16 items-center gap-2 px-4"
             style={{ gridTemplateColumns: `repeat(${bottomNavItems.length}, minmax(0, 1fr))` }}

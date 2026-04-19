@@ -26,8 +26,10 @@ export function App() {
     setSelectedRecipeId(null)
   }
 
+  let page = <RecipesPage currentPage={currentPage} onNavigate={handleNavigate} />
+
   if (currentPage === 'recipe-create') {
-    return (
+    page = (
       <RecipeCreatePage
         currentPage={currentPage}
         onNavigate={handleNavigate}
@@ -35,9 +37,8 @@ export function App() {
       />
     )
   }
-
-  if (currentPage === 'recipe-details' && selectedRecipeId) {
-    return (
+  else if (currentPage === 'recipe-details' && selectedRecipeId) {
+    page = (
       <RecipeDetailsPage
         currentPage={currentPage}
         recipeId={selectedRecipeId}
@@ -46,28 +47,23 @@ export function App() {
       />
     )
   }
-
-  if (currentPage === 'shopping-list') {
-    return <ShoppingListPage currentPage={currentPage} onNavigate={handleNavigate} />
+  else if (currentPage === 'shopping-list') {
+    page = <ShoppingListPage currentPage={currentPage} onNavigate={handleNavigate} />
+  }
+  else if (currentPage === 'ingredients') {
+    page = <IngredientsPage currentPage={currentPage} onNavigate={handleNavigate} />
+  }
+  else if (currentPage === 'menu') {
+    page = <MenuPage currentPage={currentPage} onNavigate={handleNavigate} />
+  }
+  else if (currentPage === 'schedule') {
+    page = <SchedulePage currentPage={currentPage} onNavigate={handleNavigate} />
+  }
+  else if (currentPage === 'recurring') {
+    page = <RecurringPage currentPage={currentPage} onNavigate={handleNavigate} />
   }
 
-  if (currentPage === 'ingredients') {
-    return <IngredientsPage currentPage={currentPage} onNavigate={handleNavigate} />
-  }
-
-  if (currentPage === 'menu') {
-    return <MenuPage currentPage={currentPage} onNavigate={handleNavigate} />
-  }
-
-  if (currentPage === 'schedule') {
-    return <SchedulePage currentPage={currentPage} onNavigate={handleNavigate} />
-  }
-
-  if (currentPage === 'recurring') {
-    return <RecurringPage currentPage={currentPage} onNavigate={handleNavigate} />
-  }
-
-  return <RecipesPage currentPage={currentPage} onNavigate={handleNavigate} />
+  return page
 }
 
 export default App
