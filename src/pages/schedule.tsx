@@ -220,7 +220,7 @@ export function SchedulePage({ currentPage, onNavigate }: SchedulePageProps) {
           )}
         </div>
 
-        <div className="fixed inset-x-0 bottom-20 z-30 flex justify-center px-4">
+        <div className="fixed inset-x-0 bottom-safe-offset-20 z-30 flex justify-center px-4">
           <div className="w-full max-w-xl">
             <Combobox
               inputValue={searchQuery}
@@ -247,7 +247,7 @@ export function SchedulePage({ currentPage, onNavigate }: SchedulePageProps) {
                 disabled: currentRecipeIds.includes(recipe.id),
               }))}
             >
-              <div className="mx-auto flex w-fit items-center gap-3">
+              <div className="mx-auto flex w-fit items-center">
                 <Search className="h-4 w-4 text-muted-foreground" />
                 <ComboboxInput ref={searchInputRef} className="min-w-[18rem]" placeholder="Add Recipes" />
               </div>
