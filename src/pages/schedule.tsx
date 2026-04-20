@@ -248,7 +248,7 @@ export function SchedulePage({ currentPage, onNavigate }: SchedulePageProps) {
               }))}
             >
               <div className="mx-auto flex w-fit items-center">
-                <Search className="h-4 w-4 text-muted-foreground" />
+                <Search className="h-4 w-4 m-2 text-muted-foreground" />
                 <ComboboxInput ref={searchInputRef} className="min-w-[18rem]" placeholder="Add Recipes" />
               </div>
               <ComboboxContent>
