@@ -87,7 +87,7 @@ export function MobileLayout({ children, title, currentPage, onNavigate, showBot
         </div>
       </header>
 
-      <main className={showBottomNav ? 'flex-1 pb-16' : 'flex-1'}>{children}</main>
+      <main className={showBottomNav ? 'flex-1 pb-safe-offset-16' : 'flex-1'}>{children}</main>
 
       {showBottomNav && (
         <nav className="fixed bottom-0 right-0 left-0 z-50 border-t bg-background/95 pb-safe backdrop-blur supports-backdrop-filter:bg-background/60">
